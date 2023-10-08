@@ -59,35 +59,48 @@ public class WordsManager {
     /**
      * Constructor.
      */
-    static WordsManager() {
+    public WordsManager() {
+        root = new TrieNode();
+    }
+
+    /**
+     * Init.
+     */
+    static void init() {
         root = new TrieNode();
     }
 
     /**
      * normalizeWord.
      */
-    static void normalizeWord(Word word) {
-        word.setContent(word.getContent().toLowerCase());
-        word.setType(word.getType().toLowerCase());
-        word.setMeaning(word.getMeaning().toLowerCase());
-        word.setExample(word.getExample().toLowerCase());
+    static Word normalizeWord(Word word) {
+        Word newWord = new Word(word.getContent(), word.getType(), word.getMeaning(), word.getExample());
+        newWord.setContent(newWord.getContent().toLowerCase());
+        newWord.setType(newWord.getType().toLowerCase());
+        newWord.setMeaning(newWord.getMeaning().toLowerCase());
+        newWord.setExample(newWord.getExample().toLowerCase());
+        return newWord;
     }
 
     /**
      * insertWord.
      */
-    static void insertWord(Word word) {
-        normalizeWord(word);
+    static void insertWord(Word raw_word) {
+        Word word = normalizeWord(raw_word);
         TrieNode current = root;
         for (int i = 0; i < word.getContent().length(); i++) {
             char c = word.getContent().charAt(i);
             int index = c - 'a';
+            if (c < 'a' || c > 'z') {
+                System.out.println("Invalid word: " + raw_word.getContent() + " at index " + i + "\n");
+                continue;
+            }
             if (current.getChildren()[index] == null) {
                 current.getChildren()[index] = new TrieNode();
             }
             current = current.getChildren()[index];
         }
-        current.setWord(word);
+        current.setWord(raw_word);
         current.setIsWord(true);
     }
 
@@ -97,11 +110,16 @@ public class WordsManager {
      * @param Content String
      * @return Word or null
      */
-    static Word searchWord(String Content) {
+    static Word searchWord(String raw_Content) {
+        String Content = raw_Content.toLowerCase();
         TrieNode current = root;
         for (int i = 0; i < Content.length(); i++) {
             char c = Content.charAt(i);
             int index = c - 'a';
+            if (c < 'a' || c > 'z') {
+                System.out.println("Invalid word: " + raw_Content + " at index " + i + "\n");
+                continue;
+            }
             if (current.getChildren()[index] == null) {
                 return null;
             }
@@ -128,6 +146,7 @@ public class WordsManager {
                 suggestions(current.getChildren()[i], prefix + (char) (i + 'a'));
             }
         }
+    }
 
     /**
      * isEmpty.
@@ -149,7 +168,7 @@ public class WordsManager {
             return;
         }
 
-        if (depth == Content.length()) {
+        if (depth == Content.length() - 1) {
             if (!current.isWord()) {
                 return;
             }
@@ -160,12 +179,28 @@ public class WordsManager {
             return;
         }
 
-        int index = Content.charAt(index) - 'a';
+        int index = Content.charAt(depth) - 'a';
         deleteWord(current.getChildren()[index], Content, depth + 1);
 
         if (isEmpty(current) && current.isWord() == false) {
             current = null;
         }
     }
+
+    // /**
+    //  * main.
+    //  */
+    // public static void main(String[] args) {
+    //     WordsManager.init();
+
+    //     Word word = new Word("Hello", "Noun", "Xin chao", "Hello World");
+    //     WordsManager.insertWord(word);
+    //     Word word2 = searchWord("Hello");
+    //     System.out.println(word2.getContent());
+    //     System.out.println(word2.getType());
+    //     System.out.println(word2.getMeaning());
+    //     System.out.println(word2.getExample());
+        
+    // }
 }
 
