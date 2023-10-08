@@ -136,7 +136,7 @@ public class WordsManager {
      */
     static void suggestions(TrieNode current, String prefix) {
         if (current.isWord()) {
-            System.out.println(prefix);
+            System.out.println(current.getWord().getContent());
         }
         if (isEmpty(current)) {
             return;
@@ -200,7 +200,10 @@ public class WordsManager {
     //     System.out.println(word2.getType());
     //     System.out.println(word2.getMeaning());
     //     System.out.println(word2.getExample());
-        
+    //     WordsManager.insertWord(new Word("Hello", "Noun", "Xin chao", "Hello World"));
+    //     WordsManager.insertWord(new Word("Hello", "Noun", "Xin chao", "Hello World"));
+    //     WordsManager.insertWord(new Word("Hello", "Noun", "Xin chao", "Hello World"));
+    //     WordsManager.suggestions(root, "Hel");
     // }
 }
 
