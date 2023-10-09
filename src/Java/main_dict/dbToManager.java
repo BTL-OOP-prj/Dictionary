@@ -85,7 +85,7 @@ public class dbToManager {
                 }
                 Word word = new Word(Content, Type, Meaning, Example);
                 WordsManager.insertWord(word);
-                System.out.println(word.toString());
+                // System.out.println(word.toString());
             }
             sc.close();
         }
@@ -100,6 +100,7 @@ public class dbToManager {
      */
     public static void main(String[] args) {
         scan("E:/Dictionary/src/DB/Eng.csv");
+        WordsManager.suggestions("al");
     }
 
 }
