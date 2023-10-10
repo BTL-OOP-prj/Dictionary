@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.Scanner;
 import main_dict.Word;
 import main_dict.WordsManager;
+import java.net.*;
 
 public class dbToManager {
 
@@ -11,11 +12,12 @@ public class dbToManager {
      * split.
      */
     public static String[] split(String str, String delimiter) {
-        String[] result = new String[4];
+        String[] result = new String[5];
         int index = str.indexOf(delimiter);
         //check content
-        if (index == -1) {
+        if (index == 0) {
             result[0] = "";
+            str = str.substring(index + 1);
         }
         else {
             result[0] = str.substring(0, index);
@@ -23,8 +25,9 @@ public class dbToManager {
         }
         //check type
         index = str.indexOf(delimiter);
-        if (index == -1) {
+        if (index == 0) {
             result[1] = "";
+            str = str.substring(index + 1);
         }
         else {
             result[1] = str.substring(0, index);
@@ -32,23 +35,37 @@ public class dbToManager {
         }
         //check meaning
         index = str.indexOf(delimiter);
-        if (index == -1) {
+        if (index == 0) {
             result[2] = "";
         }
         else {
             result[2] = str.substring(0, index);
             str = str.substring(index + 1);
         }
-        //check example
+        //check pronunciation
         index = str.indexOf(delimiter);
-        if (index == -1) {
+        if (index == 0) {
             result[3] = "";
+            str = str.substring(index + 1);
         }
         else {
             result[3] = str.substring(0, index);
             str = str.substring(index + 1);
         }
+        //check example
+        result[4] = str;
         return result;
+    }
+
+    /**
+     * Get the path of the database.
+     */
+    public static String pathGetter(String raw_path) {
+            File pathGetter = new File("");
+            String path = pathGetter.getAbsolutePath();
+            path = path.substring(0, path.length() - 4);
+            path = path + raw_path;
+        return path;
     }
 
     /**
@@ -56,16 +73,21 @@ public class dbToManager {
      */
     public static void scan(String path) {
         try {
-            Scanner sc = new Scanner(new File(path));
-            sc.nextLine();
-            sc.useDelimiter(",|\n");
+            path = pathGetter(path);
+            File DBF = new File(path);
+            Scanner sc = new Scanner(DBF);
+            if (!sc.hasNextLine()) {
+                System.out.println("File is empty!");
+                return;
+            }
             while (sc.hasNextLine()) {
                 String curLine = sc.nextLine();
                 String[] curWord = split(curLine, ",");
                 String Content = curWord[0];
                 String Type = curWord[1];
                 String Meaning = curWord[2];
-                String Example = curWord[3];
+                String Pronunciation = curWord[3];
+                String Example = curWord[4];
                 if (Content.indexOf(" ") != -1 || Content.indexOf("-") != -1 || Content.indexOf("'") != -1 ||
                     Content.indexOf(".") != -1 || Content.indexOf(",") != -1 || Content.indexOf("?") != -1 ||
                     Content.indexOf("!") != -1 || Content.indexOf(":") != -1 || Content.indexOf(";") != -1 ||
@@ -83,7 +105,7 @@ public class dbToManager {
                     Content.indexOf("8") != -1 || Content.indexOf("9") != -1) {
                     continue;
                 }
-                Word word = new Word(Content, Type, Meaning, Example);
+                Word word = new Word(Content, Type, Meaning, Pronunciation, Example);
                 WordsManager.insertWord(word);
                 // System.out.println(word.toString());
             }
@@ -91,6 +113,7 @@ public class dbToManager {
         }
         catch (FileNotFoundException e) {
             System.out.println("File not found!");
+            // e.printStackTrace();
         }
         
     }
@@ -99,7 +122,7 @@ public class dbToManager {
      * main.
      */
     public static void main(String[] args) {
-        scan("E:/Dictionary/src/DB/Eng.csv");
+        scan("DB/Eng.csv");
         WordsManager.suggestions("al");
     }
 

@@ -4,15 +4,17 @@ public class Word {
     private String Content;
     private String Type;
     private String Meaning;
+    private String Pronunciation;
     private String Example;
 
     /**
      * Constructor.
      */
-    public Word(String Content, String Type, String Meaning, String Example) {
+    public Word(String Content, String Type, String Meaning, String Pronunciation, String Example) {
         this.Content = Content;
         this.Type = Type;
         this.Meaning = Meaning;
+        this.Pronunciation = Pronunciation;
         this.Example = Example;
     }
 
@@ -73,10 +75,24 @@ public class Word {
     }
 
     /**
+     * Pronunciation Getter.
+     */
+    public String getPronunciation() {
+        return Pronunciation;
+    }
+
+    /**
+     * Pronunciation Setter.
+     */
+    public void setPronunciation(String Pronunciation) {
+        this.Pronunciation = Pronunciation;
+    }
+
+    /**
      * toString.
      */
-    @Override
     public String toString() {
-        return "Word [Content=" + Content + ", Type=" + Type + ", Meaning=" + Meaning + ", Example=" + Example + "]";
+        return ("[" + Content + ", " + Type + ", " + Pronunciation + ", " + Meaning + ", " + Example + "]");
     }
+    
 }

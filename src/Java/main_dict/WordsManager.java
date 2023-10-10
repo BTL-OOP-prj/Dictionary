@@ -66,10 +66,11 @@ public class WordsManager {
      * normalizeWord.
      */
     static Word normalizeWord(Word word) {
-        Word newWord = new Word(word.getContent(), word.getType(), word.getMeaning(), word.getExample());
+        Word newWord = new Word(word.getContent(), word.getType(), word.getMeaning(), word.getPronunciation(), word.getExample());
         newWord.setContent(newWord.getContent().toLowerCase());
         newWord.setType(newWord.getType().toLowerCase());
         newWord.setMeaning(newWord.getMeaning().toLowerCase());
+        newWord.setPronunciation(newWord.getPronunciation().toLowerCase());
         newWord.setExample(newWord.getExample().toLowerCase());
         return newWord;
     }
