@@ -68,7 +68,8 @@ public class WordsManager {
      * normalizeWord.
      */
     static Word normalizeWord(Word word) {
-        Word newWord = new Word(word.getContent(), word.getType(), word.getMeaning(), word.getPronunciation(), word.getExample());
+        Word newWord = new Word(word.getContent(), word.getType(), word.getMeaning(), word.getPronunciation(),
+                word.getExample());
         newWord.setContent(newWord.getContent().toLowerCase());
         newWord.setType(newWord.getType().toLowerCase());
         newWord.setMeaning(newWord.getMeaning().toLowerCase());
@@ -80,7 +81,7 @@ public class WordsManager {
     /**
      * insertWord.
      */
-    static void insertWord(Word raw_word) {
+    public static void insertWord(Word raw_word) {
         Word word = normalizeWord(raw_word);
         TrieNode current = root;
         for (int i = 0; i < word.getContent().length(); i++) {
@@ -101,7 +102,7 @@ public class WordsManager {
      * @param Content String
      * @return Word or null
      */
-    static Word searchWord(String raw_Content) {
+    public static Word searchWord(String raw_Content) {
         String Content = raw_Content.toLowerCase();
         TrieNode current = root;
         for (int i = 0; i < Content.length(); i++) {
@@ -195,13 +196,14 @@ public class WordsManager {
      * main.
      */
     // public static void main(String[] args) {
-    //     Word word = new Word("Hello", "Noun", "Xin chao", "Hello World");
-    //     WordsManager.insertWord(word);
-    //     Word word2 = searchWord("Hello");
-    //     WordsManager.insertWord(new Word("alllo", "Noun", "Xin chao", "Hello World"));
-    //     WordsManager.insertWord(new Word("bllo", "Noun", "Xin chao", "Hello World"));
-    //     WordsManager.insertWord(new Word("hellllo", "Noun", "Xin chao", "Hello World"));
-    //     WordsManager.suggestions("Hel");
+    // Word word = new Word("Hello", "Noun", "Xin chao", "Hello World");
+    // WordsManager.insertWord(word);
+    // Word word2 = searchWord("Hello");
+    // WordsManager.insertWord(new Word("alllo", "Noun", "Xin chao", "Hello
+    // World"));
+    // WordsManager.insertWord(new Word("bllo", "Noun", "Xin chao", "Hello World"));
+    // WordsManager.insertWord(new Word("hellllo", "Noun", "Xin chao", "Hello
+    // World"));
+    // WordsManager.suggestions("Hel");
     // }
 }
-
