@@ -1,4 +1,4 @@
-package main_dict;
+package Core.main_dict;
 
 public class Word {
     private String Content;
@@ -94,5 +94,5 @@ public class Word {
     public String toString() {
         return ("[" + Content + ", " + Type + ", " + Pronunciation + ", " + Meaning + ", " + Example + "]");
     }
-    
+
 }

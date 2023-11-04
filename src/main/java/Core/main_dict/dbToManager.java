@@ -1,9 +1,9 @@
-package main_dict;
+package Core.main_dict;
 
 import java.io.*;
 import java.util.Scanner;
-import main_dict.Word;
-import main_dict.WordsManager;
+import Core.main_dict.Word;
+import Core.main_dict.WordsManager;
 import java.net.*;
 
 public class dbToManager {
@@ -112,11 +112,11 @@ public class dbToManager {
 
     }
 
-    /**
-     * main.
-     */
-    public static void main(String[] args) {
-        System.out.println(pathGetter("test.txt"));
-    }
+    // /**
+    // * main.
+    // */
+    // public static void main(String[] args) {
+    // System.out.println(pathGetter("test.txt"));
+    // }
 
 }

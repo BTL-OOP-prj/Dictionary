@@ -1,10 +1,10 @@
-package main_dict;
+package Core.main_dict;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import main_dict.Word;
+import Core.main_dict.Word;
 
 public class WordsManager {
 
